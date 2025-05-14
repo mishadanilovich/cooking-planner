@@ -1,6 +1,6 @@
+import { FlatCompat } from '@eslint/eslintrc';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { FlatCompat } from '@eslint/eslintrc';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -15,11 +15,35 @@ const eslintConfig = [
       'next',
       'next/core-web-vitals',
       'next/typescript',
+      'plugin:import/recommended',
+      'plugin:import/typescript',
       'plugin:prettier/recommended',
       'plugin:jsx-a11y/recommended',
     ],
-    plugins: ['prettier', 'jsx-a11y'],
+    plugins: ['simple-import-sort', 'prettier', 'jsx-a11y'],
     rules: {
+      'simple-import-sort/imports': [
+        'error',
+        {
+          groups: [
+            [
+              '^\\u0000',
+              '^react$',
+              '^@?\\w',
+              '^@',
+              '^',
+              '^\\./',
+              '^.+\\.(module.css|module.scss|css)$',
+              '^.+\\.(gif|png|svg|jpg)$',
+            ],
+          ],
+        },
+      ],
+      'simple-import-sort/exports': 'error',
+      'import/order': 'off',
+      'import/first': 'off',
+      'import/newline-after-import': 'off',
+      'import/no-duplicates': 'off',
       'prettier/prettier': [
         'error',
         {
